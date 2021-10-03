@@ -1,25 +1,49 @@
-import logo from './logo.svg';
-import './App.css';
-
-function App() {
+import { useEffect, useState } from "react";
+import "./App.css";
+import Navbar from "./components/Navbar";
+import Search from "./components/Search";
+import WeatherInfo from "./components/WeatherInfo";
+const App = () => {
+  const [city, setCity] = useState("yangon");
+  const [weatherData, setWeatherData] = useState({
+    weather: [
+      {
+        id: 501,
+        main: "Rain",
+        description: "moderate rain",
+        icon: "10d",
+      },
+    ],
+    main: {
+      temp: 300.13,
+      feels_like: 304.25,
+      temp_min: 300.13,
+      temp_max: 300.13,
+      pressure: 1006,
+      humidity: 94,
+    },
+    wind: {
+      speed: 1.54,
+      deg: 90,
+    },
+    name: "Yangon",
+  });
+  useEffect(() => {
+    fetch(
+      `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=d896edbae39a61362c68bc4466dd9453`
+    )
+      .then((res) => res.json())
+      .then((data) => setWeatherData(data));
+  }, [city]);
+  const changeCity = ({ cityName }) => {
+    setCity(cityName);
+  };
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <Navbar />
+      <Search getCity={changeCity} />
+      <WeatherInfo weatherData={weatherData} />
     </div>
   );
-}
-
+};
 export default App;
