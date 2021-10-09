@@ -9,7 +9,7 @@ const Search = ({ getCity }) => {
     setCityName("");
   };
   return (
-    <div>
+    <div className="searchbar">
       <form onSubmit={sendCityName}>
         <input
           type="text"

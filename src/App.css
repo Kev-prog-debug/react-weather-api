@@ -7,3 +7,17 @@
 .nav-item {
   color: red;
 }
+
+.weatherDisplay {
+  margin: 2rem;
+  display: grid;
+  grid-gap: 10px;
+  grid-template-columns: auto auto auto;
+}
+.weatherInfo {
+  border: 2px solid black;
+  border-radius: 10px;
+}
+.details {
+  text-align: center;
+}
